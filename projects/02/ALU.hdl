@@ -62,11 +62,11 @@ CHIP ALU {
     Mux16 (a=andout, b=addout, sel=f, out=fout);
 
     // if (no == 1) set out = !out
+    // ng = 1 if (out < 0), 0 otherwise
     Not16 (in=fout, out=nfout);
     Mux16 (a=fout, b=nfout, sel=no, out=out, out[0..7]=out1, out[8..15]=out2, out[15]=ng);
 
     // zr = 1 if (out == 0), 0 otherwise
-    // ng = 1 if (out < 0), 0 otherwise
     Or8Way(in=out1, out=or1);
     Or8Way(in=out2, out=or2);
     Or (a=or1, b=or2, out=or3);
